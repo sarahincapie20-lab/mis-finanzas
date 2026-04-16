@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-title" content="Mis Finanzas">
 <meta name="theme-color" content="#6C5CE7">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236C5CE7'/%3E%3Ccircle cx='256' cy='220' r='100' fill='none' stroke='%23fff' stroke-width='28'/%3E%3Ctext x='256' y='245' font-size='110' text-anchor='middle' fill='%23fff' font-family='Arial'%3E%24%3C/text%3E%3Crect x='156' y='340' width='200' height='28' rx='14' fill='%23fff'/%3E%3Crect x='196' y='385' width='120' height='28' rx='14' fill='rgba(255,255,255,.6)'/%3E%3C/svg%3E">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236C5CE7'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle' fill='%23fff' font-family='Arial'%3E%F0%9F%92%B0%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C5CE7'/%3E%3Cstop offset='100%25' stop-color='%23a29bfe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23g)'/%3E%3Crect x='80' y='170' width='352' height='210' rx='32' fill='rgba(255,255,255,0.18)' stroke='white' stroke-width='16'/%3E%3Crect x='80' y='170' width='352' height='72' rx='32' fill='rgba(255,255,255,0.28)'/%3E%3Crect x='305' y='225' width='127' height='100' rx='22' fill='rgba(255,255,255,0.22)' stroke='white' stroke-width='13'/%3E%3Ccircle cx='368' cy='275' r='30' fill='white'/%3E%3Ctext x='368' y='286' font-size='32' text-anchor='middle' fill='%236C5CE7' font-family='Arial' font-weight='900'%3E%24%3C/text%3E%3Crect x='108' y='208' width='150' height='13' rx='6' fill='white' opacity='0.75'/%3E%3Crect x='108' y='235' width='100' height='13' rx='6' fill='white' opacity='0.4'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C5CE7'/%3E%3Cstop offset='100%25' stop-color='%23a29bfe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23g)'/%3E%3Crect x='80' y='170' width='352' height='210' rx='32' fill='rgba(255,255,255,0.18)' stroke='white' stroke-width='16'/%3E%3Crect x='80' y='170' width='352' height='72' rx='32' fill='rgba(255,255,255,0.28)'/%3E%3Crect x='305' y='225' width='127' height='100' rx='22' fill='rgba(255,255,255,0.22)' stroke='white' stroke-width='13'/%3E%3Ccircle cx='368' cy='275' r='30' fill='white'/%3E%3Ctext x='368' y='286' font-size='32' text-anchor='middle' fill='%236C5CE7' font-family='Arial' font-weight='900'%3E%24%3C/text%3E%3Crect x='108' y='208' width='150' height='13' rx='6' fill='white' opacity='0.75'/%3E%3Crect x='108' y='235' width='100' height='13' rx='6' fill='white' opacity='0.4'/%3E%3C/svg%3E">
 
 <!-- Splash screen color morado mientras carga -->
 <style>
@@ -66,10 +66,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .section{display:none}.section.active{display:block}
 
 /* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:.65rem;box-shadow:var(--sh)}
-.card-t{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:.5rem}
-.sec-t{font-size:15px;font-weight:800;margin-bottom:.7rem;color:var(--text)}
-.sub-t{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:.7rem 0 .4rem;padding-bottom:.3rem;border-bottom:1px solid var(--border)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1rem;margin-bottom:.55rem;box-shadow:var(--sh)}
+.card-t{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:.45rem}
+.sec-t{font-size:14px;font-weight:800;margin-bottom:.6rem;color:var(--text)}
+.sub-t{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:.6rem 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid var(--border)}
 
 /* GRID */
 .mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-bottom:.65rem}
@@ -211,14 +211,14 @@ input:focus,select:focus{border-color:var(--accent)}
 .proy-item .pi-val{font-size:15px;font-weight:800;color:var(--green)}
 
 /* CONFIG */
-.cfg-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.65rem;overflow:hidden}
-.cfg-header{padding:.75rem 1.1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
+.cfg-section{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:.55rem;overflow:hidden}
+.cfg-header{padding:.65rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
 .cfg-header h3{font-size:13px;font-weight:800;margin:0}
-.cfg-body{padding:.85rem 1.1rem}
-.cfg-row{display:flex;align-items:center;gap:.5rem;padding:.55rem 0;border-bottom:1px solid var(--bg)}
+.cfg-body{padding:.75rem 1rem}
+.cfg-row{display:flex;align-items:center;gap:.5rem;padding:.5rem 0;border-bottom:1px solid var(--bg)}
 .cfg-row:last-child{border-bottom:none}
-.cfg-row-name{flex:1;font-weight:600;font-size:13px}
-.cfg-row-val{font-weight:700;font-size:13px;color:var(--text)}
+.cfg-row-name{flex:1;font-weight:600;font-size:13px;line-height:1.3}
+.cfg-row-val{font-weight:700;font-size:13px;color:var(--text);white-space:nowrap}
 .cfg-row-badge{margin:0 .25rem}
 .cfg-actions{display:flex;gap:4px}
 
@@ -358,10 +358,6 @@ input:focus,select:focus{border-color:var(--accent)}
 <!-- ═══ DEUDAS ═══ -->
 <div id="deudas" class="section">
   <div class="mg" id="deu-mg"></div>
-  <div class="card">
-    <div class="card-t">💡 Consejos</div>
-    <div id="deu-consejos"></div>
-  </div>
   <div id="deu-list"></div>
 
   <!-- Timeline liberación -->
@@ -545,31 +541,12 @@ input:focus,select:focus{border-color:var(--accent)}
     </div>
   </div>
 
-  <!-- Backup / Sync -->
-  <div class="card" style="background:#EAF4FD;border-color:#90CAF9">
-    <div class="sec-t" style="color:var(--teal)">☁️ Guardar y sincronizar datos</div>
-    <p style="font-size:13px;color:#1A5276;margin-bottom:.85rem">
-      Exporta tus datos como archivo e impórtalos en cualquier dispositivo. Así puedes pasar tus datos del PC al celular (o al revés) cuando quieras.
-    </p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.85rem">
-      <button class="btn btn-p" onclick="exportarDatos()">⬇ Exportar mis datos</button>
-      <button class="btn btn-s" onclick="document.getElementById('imp-file').click()">⬆ Importar datos</button>
-      <input type="file" id="imp-file" accept=".json" style="display:none" onchange="importarDatos(event)">
-    </div>
-    <div style="background:rgba(255,255,255,.6);border-radius:var(--rs);padding:.7rem .85rem;font-size:12px;color:#1A5276;line-height:1.6">
-      <b>¿Cómo sincronizar PC ↔ Celular?</b><br>
-      1. En el PC: toca <b>Exportar</b> → descarga un archivo <code>.json</code><br>
-      2. Envíatelo por WhatsApp, email o AirDrop<br>
-      3. En el celular: toca <b>Importar</b> → selecciona el archivo
-    </div>
-    <div id="backup-info" style="margin-top:.6rem;font-size:11px;color:var(--muted)"></div>
-  </div>
-
   <!-- Zona peligro -->
-  <div class="card" style="background:#FFF8F0;border-color:#FED7AA">
-    <div class="sec-t" style="color:var(--orange)">⚠️ Zona de precaución</div>
-    <p style="font-size:13px;color:#92400E;margin-bottom:.75rem">Borra todos los datos y reinicia la app desde cero.</p>
-    <button class="btn" style="background:#fff;color:var(--red);border:1.5px solid var(--red)" onclick="resetAll()">Borrar todos los datos</button>
+  <div class="cfg-section" style="border-color:#FED7AA">
+    <div class="cfg-header" style="background:#FFF8F0">
+      <h3 style="color:var(--orange)">⚠️ Reiniciar app</h3>
+      <button class="bsm" style="color:var(--red);border-color:#FCA5A5" onclick="resetAll()">Borrar todo</button>
+    </div>
   </div>
 </div>
 
@@ -1078,7 +1055,6 @@ function renderDeudas() {
       <div class="cd">Lo recomendado es máximo 30%. Enfócate en reducir deudas antes de adquirir nuevas.</div>
     </div></div>`;
   }
-  document.getElementById('deu-consejos').innerHTML=consejos;
   // Lista
   document.getElementById('deu-list').innerHTML=deudas.map((dd,i)=>{
     const saldo=Math.max(0,(dd.total||0)-(dd.pagado||0));
