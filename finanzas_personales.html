@@ -360,6 +360,25 @@ input:focus,select:focus{border-color:var(--accent)}
   <div class="mg" id="deu-mg"></div>
   <div id="deu-list"></div>
 
+  <!-- Calculadora pago flexible -->
+  <div class="card">
+    <div class="sec-t">¿Cuándo termino si pago...?</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:.75rem">Selecciona una deuda y simula cuándo la terminas según lo que puedas pagar cada mes.</p>
+    <div class="fg" style="margin-bottom:.75rem">
+      <div>
+        <label>Deuda</label>
+        <select id="calc-deuda" onchange="renderCalcPago()">
+          <option value="">— Selecciona —</option>
+        </select>
+      </div>
+      <div>
+        <label>Pago mensual (COP)</label>
+        <input id="calc-monto" type="number" placeholder="1000000" oninput="renderCalcPago()">
+      </div>
+    </div>
+    <div id="calc-resultado"></div>
+  </div>
+
   <!-- Timeline liberación -->
   <div class="card">
     <div class="sec-t">¿Cuándo se libera cada pago?</div>
@@ -1055,6 +1074,7 @@ function renderDeudas() {
       <div class="cd">Lo recomendado es máximo 30%. Enfócate en reducir deudas antes de adquirir nuevas.</div>
     </div></div>`;
   }
+  renderCalcSelect();
   // Lista
   document.getElementById('deu-list').innerHTML=deudas.map((dd,i)=>{
     const saldo=Math.max(0,(dd.total||0)-(dd.pagado||0));
@@ -1195,6 +1215,86 @@ function addDeuda() {
 function delDeuda(i){if(!confirm('¿Eliminar esta deuda?'))return;state.deudas.splice(i,1);save();renderDeudas();renderCfgDeu();renderMimes();}
 
 // ═══ LIBERACIÓN ═══
+function renderCalcSelect() {
+  const sel = document.getElementById('calc-deuda');
+  if (!sel) return;
+  const actual = sel.value;
+  sel.innerHTML = '<option value="">— Selecciona —</option>' +
+    state.deudas.map((d,i) => {
+      const saldo = Math.max(0,(d.total||0)-(d.pagado||0));
+      if (saldo <= 0) return '';
+      return `<option value="${i}" ${actual==i?'selected':''}>${d.n} — ${cop(saldo)}</option>`;
+    }).join('');
+}
+
+function renderCalcPago() {
+  const idx = document.getElementById('calc-deuda').value;
+  const monto = parseFloat(document.getElementById('calc-monto').value) || 0;
+  const el = document.getElementById('calc-resultado');
+  if (idx === '' || !monto) { el.innerHTML = ''; return; }
+
+  const d = state.deudas[idx];
+  const saldo = Math.max(0,(d.total||0)-(d.pagado||0));
+  const tasa = (d.tasa||0)/100/12;
+
+  // Calcular meses para distintos montos
+  function calcMeses(pago, s, t) {
+    if (!pago || pago <= 0) return null;
+    if (t <= 0) return Math.ceil(s / pago);
+    if (pago <= s * t) return null; // pago no cubre intereses
+    let sv = s, m = 0;
+    while (sv > 0.5 && m < 600) {
+      sv = sv * (1 + t) - pago;
+      m++;
+    }
+    return m;
+  }
+
+  const escenarios = [
+    { l: 'Lo que elegiste', c: monto },
+    { l: '-25%', c: Math.round(monto * 0.75) },
+    { l: '+25%', c: Math.round(monto * 1.25) },
+    { l: '+50%', c: Math.round(monto * 1.5) },
+    { l: 'Doble', c: monto * 2 },
+  ];
+
+  const filas = escenarios.map(e => {
+    const m = calcMeses(e.c, saldo, tasa);
+    const fecha = m ? finEst(m) : '—';
+    const total = m ? e.c * m : null;
+    const interes = total ? Math.max(0, total - saldo) : null;
+    const esBase = e.l === 'Lo que elegiste';
+    return `<tr style="${esBase ? 'background:var(--accent-bg);font-weight:800' : ''}">
+      <td>${e.l}</td>
+      <td class="tr">${cop(e.c)}</td>
+      <td class="tr">${m ? m + ' meses' : '—'}</td>
+      <td>${fecha}</td>
+      <td class="tr" style="color:var(--green)">${total ? cop(total) : '—'}</td>
+      ${tasa > 0 ? `<td class="tr" style="color:var(--orange)">${interes ? cop(interes) : '—'}</td>` : ''}
+    </tr>`;
+  }).join('');
+
+  const mesesBase = calcMeses(monto, saldo, tasa);
+  const color = mesesBase ? (mesesBase <= 12 ? 'var(--green)' : mesesBase <= 24 ? 'var(--orange)' : 'var(--red)') : 'var(--red)';
+
+  el.innerHTML = `
+    <div style="background:var(--accent-bg);border-radius:var(--rs);padding:.75rem 1rem;margin-bottom:.75rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase">Saldo pendiente</div>
+        <div style="font-size:20px;font-weight:900;color:var(--red)">${cop(saldo)}</div>
+      </div>
+      <div style="flex:1;text-align:right">
+        <div style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase">Con ${cop(monto)}/mes terminas en</div>
+        <div style="font-size:20px;font-weight:900;color:${color}">${mesesBase ? mesesBase + ' meses · ' + finEst(mesesBase) : 'El pago no alcanza'}</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto"><table>
+      <thead><tr><th>Escenario</th><th class="tr">Pago/mes</th><th class="tr">Tiempo</th><th>Terminas</th><th class="tr">Total pagas</th>${tasa > 0 ? '<th class="tr">Intereses</th>' : ''}</tr></thead>
+      <tbody>${filas}</tbody>
+    </table></div>
+  `;
+}
+
 function renderLiberacion() {
   const deus=state.deudas.filter(d=>{const s=Math.max(0,(d.total||0)-(d.pagado||0));return s>0&&d.c>0;})
     .sort((a,b)=>{const sa=Math.max(0,(a.total||0)-(a.pagado||0));const sb=Math.max(0,(b.total||0)-(b.pagado||0));return Math.ceil(sa/a.c)-Math.ceil(sb/b.c);});
