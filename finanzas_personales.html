@@ -11,7 +11,48 @@
 <meta name="apple-mobile-web-app-title" content="Mis Finanzas">
 <meta name="theme-color" content="#6C5CE7">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C5CE7'/%3E%3Cstop offset='100%25' stop-color='%23a29bfe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23g)'/%3E%3Crect x='80' y='170' width='352' height='210' rx='32' fill='rgba(255,255,255,0.18)' stroke='white' stroke-width='16'/%3E%3Crect x='80' y='170' width='352' height='72' rx='32' fill='rgba(255,255,255,0.28)'/%3E%3Crect x='305' y='225' width='127' height='100' rx='22' fill='rgba(255,255,255,0.22)' stroke='white' stroke-width='13'/%3E%3Ccircle cx='368' cy='275' r='30' fill='white'/%3E%3Ctext x='368' y='286' font-size='32' text-anchor='middle' fill='%236C5CE7' font-family='Arial' font-weight='900'%3E%24%3C/text%3E%3Crect x='108' y='208' width='150' height='13' rx='6' fill='white' opacity='0.75'/%3E%3Crect x='108' y='235' width='100' height='13' rx='6' fill='white' opacity='0.4'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" id="app-icon">
+<script>
+(function(){
+  var c=document.createElement('canvas');
+  c.width=180;c.height=180;
+  var x=c.getContext('2d');
+  // Fondo degradado morado
+  var g=x.createLinearGradient(0,0,180,180);
+  g.addColorStop(0,'#6C5CE7');g.addColorStop(1,'#a29bfe');
+  x.fillStyle=g;
+  x.beginPath();x.roundRect(0,0,180,180,36);x.fill();
+  // Cuerpo billetera
+  x.fillStyle='rgba(255,255,255,0.2)';
+  x.strokeStyle='rgba(255,255,255,0.9)';x.lineWidth=5;
+  x.beginPath();x.roundRect(22,58,136,82,12);x.fill();x.stroke();
+  // Solapa billetera
+  x.fillStyle='rgba(255,255,255,0.3)';
+  x.beginPath();x.roundRect(22,58,136,30,12);x.fill();
+  // Bolsillo moneda
+  x.fillStyle='rgba(255,255,255,0.18)';
+  x.strokeStyle='rgba(255,255,255,0.85)';x.lineWidth=4;
+  x.beginPath();x.roundRect(108,78,50,40,8);x.fill();x.stroke();
+  // Moneda
+  x.fillStyle='white';
+  x.beginPath();x.arc(133,98,14,0,Math.PI*2);x.fill();
+  x.fillStyle='#6C5CE7';
+  x.font='bold 16px Arial';x.textAlign='center';x.textBaseline='middle';
+  x.fillText('$',133,99);
+  // Lineas tarjeta
+  x.fillStyle='rgba(255,255,255,0.75)';
+  x.beginPath();x.roundRect(32,72,60,5,3);x.fill();
+  x.fillStyle='rgba(255,255,255,0.4)';
+  x.beginPath();x.roundRect(32,83,40,5,3);x.fill();
+  // Billetes abajo
+  x.strokeStyle='rgba(255,255,255,0.6)';x.lineWidth=3;
+  x.beginPath();x.moveTo(35,155);x.lineTo(145,155);x.stroke();
+  x.beginPath();x.moveTo(50,165);x.lineTo(130,165);x.stroke();
+  // Set icon
+  var link=document.getElementById('app-icon');
+  link.href=c.toDataURL('image/png');
+})();
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236C5CE7'/%3E%3Cstop offset='100%25' stop-color='%23a29bfe'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23g)'/%3E%3Crect x='80' y='170' width='352' height='210' rx='32' fill='rgba(255,255,255,0.18)' stroke='white' stroke-width='16'/%3E%3Crect x='80' y='170' width='352' height='72' rx='32' fill='rgba(255,255,255,0.28)'/%3E%3Crect x='305' y='225' width='127' height='100' rx='22' fill='rgba(255,255,255,0.22)' stroke='white' stroke-width='13'/%3E%3Ccircle cx='368' cy='275' r='30' fill='white'/%3E%3Ctext x='368' y='286' font-size='32' text-anchor='middle' fill='%236C5CE7' font-family='Arial' font-weight='900'%3E%24%3C/text%3E%3Crect x='108' y='208' width='150' height='13' rx='6' fill='white' opacity='0.75'/%3E%3Crect x='108' y='235' width='100' height='13' rx='6' fill='white' opacity='0.4'/%3E%3C/svg%3E">
 
 <!-- Splash screen color morado mientras carga -->
