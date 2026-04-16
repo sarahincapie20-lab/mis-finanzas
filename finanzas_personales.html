@@ -894,7 +894,7 @@ function renderQ(quinc) {
       <div style="flex:1;min-width:0">
         <div class="pnombre">${it.n}</div>
         ${it.not?`<div style="font-size:10px;color:var(--muted);margin-top:1px">${it.not}</div>`:''}
-        ${it.variable?`<div class="pvar">Monto variable — ajusta con el lápiz</div>`:''}
+        ${it.variable?`<div class="pvar">Monto variable</div>`:''}
       </div>
       <span class="badge ${tagColors[it.tag]||'bg-n'}" style="font-size:9px;flex-shrink:0">${tagLabel}</span>
       <div class="pmonto">${monto>0?cop(monto):'—'}</div>
