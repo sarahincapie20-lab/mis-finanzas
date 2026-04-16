@@ -1,10 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Mis Finanzas</title>
+
+<!-- PWA: ícono y color para celular -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mis Finanzas">
+<meta name="theme-color" content="#6C5CE7">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236C5CE7'/%3E%3Ccircle cx='256' cy='220' r='100' fill='none' stroke='%23fff' stroke-width='28'/%3E%3Ctext x='256' y='245' font-size='110' text-anchor='middle' fill='%23fff' font-family='Arial'%3E%24%3C/text%3E%3Crect x='156' y='340' width='200' height='28' rx='14' fill='%23fff'/%3E%3Crect x='196' y='385' width='120' height='28' rx='14' fill='rgba(255,255,255,.6)'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%236C5CE7'/%3E%3Ctext x='256' y='340' font-size='280' text-anchor='middle' fill='%23fff' font-family='Arial'%3E%F0%9F%92%B0%3C/text%3E%3C/svg%3E">
+
+<!-- Splash screen color morado mientras carga -->
+<style>
+  html { background: #6C5CE7; }
+</style>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -708,16 +721,18 @@ function save() {
 }
 
 let state = load();
+sanearState();
 
 // Escuchar cambios en Firebase (sync en tiempo real desde otro dispositivo)
 REF.on('value', (snapshot) => {
   const datos = snapshot.val();
-  if (!datos) return; // base de datos vacía, primera vez
+  if (!datos) { sanearState(); return; } // base de datos vacía, primera vez
   // Solo actualiza si los datos vienen de otro dispositivo
   const localStr = JSON.stringify(state);
   const remotoStr = JSON.stringify(datos);
   if (localStr !== remotoStr) {
     state = datos;
+    sanearState();
     localStorage.setItem('fp_v7', remotoStr);
     renderTopBar(); renderMimes();
     const secActiva = document.querySelector('.section.active');
@@ -746,11 +761,37 @@ function finEst(mr) {
   d.setMonth(d.getMonth() + mr);
   return d.toLocaleDateString('es-CO',{month:'short', year:'numeric'});
 }
+function sanearState() {
+  if (!state.meses) state.meses = {};
+  if (!state.cfg) state.cfg = {ing:[], gas:[]};
+  if (!state.cfg.ing) state.cfg.ing = [];
+  if (!state.cfg.gas) state.cfg.gas = [];
+  if (!state.deudas) state.deudas = [];
+  if (!state.cuentas) state.cuentas = [];
+  if (!state.objetivos) state.objetivos = [];
+  // Sanear cada mes guardado
+  Object.keys(state.meses).forEach(k => {
+    const m = state.meses[k];
+    if (!m.movs) m.movs = [];
+    if (!m.q1) m.q1 = {hechos:[], montos:{}};
+    if (!m.q2) m.q2 = {hechos:[], montos:{}};
+    if (!m.q1.hechos) m.q1.hechos = [];
+    if (!m.q1.montos) m.q1.montos = {};
+    if (!m.q2.hechos) m.q2.hechos = [];
+    if (!m.q2.montos) m.q2.montos = {};
+  });
+}
+
 function getMM() {
   const k = mesKey();
+  if (!state.meses) state.meses = {};
   if (!state.meses[k]) state.meses[k]={movs:[],q1:{hechos:[],montos:{}},q2:{hechos:[],montos:{}}};
   if (!state.meses[k].q1) state.meses[k].q1={hechos:[],montos:{}};
   if (!state.meses[k].q2) state.meses[k].q2={hechos:[],montos:{}};
+  if (!state.meses[k].q1.hechos) state.meses[k].q1.hechos=[];
+  if (!state.meses[k].q1.montos) state.meses[k].q1.montos={};
+  if (!state.meses[k].q2.hechos) state.meses[k].q2.hechos=[];
+  if (!state.meses[k].q2.montos) state.meses[k].q2.montos={};
   return state.meses[k];
 }
 function toggleCfgAdd(id) {
